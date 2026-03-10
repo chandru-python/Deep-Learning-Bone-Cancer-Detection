@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Bone Classification System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar {
+      width: 100%;
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #222222;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo i {
+      color: #555555;
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .logout-btn {
+      padding: 0.6rem 1.2rem;
+      background-color: #333333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logout-btn:hover {
+      background-color: #555555;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      box-sizing: border-box;
+      margin-top: 80px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #222222;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #555555;
+      font-weight: 300;
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e0e0e0;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      color: #222222;
+      font-size: 1.1rem;
+    }
+
+    .file-input-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .file-input {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px dashed #cccccc;
+      border-radius: 8px;
+      background-color: #fafafa;
+      color: #333333;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .file-input:hover {
+      border-color: #777777;
+      background-color: #f5f5f5;
+    }
+
+    .file-input::file-selector-button {
+      padding: 0.6rem 1rem;
+      background-color: #333333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .file-input::file-selector-button:hover {
+      background-color: #555555;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: #333333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #555555;
+    }
+
+    .results-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .image-section, .prediction-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .uploaded-image {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      object-fit: contain;
+      max-height: 400px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+    }
+
+    .prediction-card {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+    }
+
+    .prediction-title {
+      color: #222222;
+      margin-top: 0;
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+
+    .prediction-result {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #222222;
+      background: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #555555;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #777777;
+      font-size: 0.9rem;
+      padding: 1rem;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .results-container {
+        flex-direction: column;
+      }
+
+      .navbar {
+        padding: 1rem;
+      }
+
+      .nav-logo {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="{{ url_for('index') }}" class="nav-logo">
+      <i class="fas fa-bone"></i>
+      <span>BoneClassify</span>
+    </a>
+    <div class="nav-controls">
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1>Medical Bone Classification System</h1>
+      <p class="subtitle">Upload radiographic images for automated bone fracture classification</p>
+    </header>
+
+    <div class="card form-container">
+      <form method="POST" enctype="multipart/form-data">
+        <label for="image-upload">Select radiographic image for analysis:</label>
+        <div class="file-input-container">
+          <input type="file" id="image-upload" class="file-input" name="image" accept="image/*" required />
+        </div>
+        <button type="submit" class="submit-btn">Analyze Image</button>
+      </form>
+    </div>
+
+    {% if image %}
+    <div class="results-container">
+      <div class="image-section">
+        <h3 class="prediction-title">Uploaded Image</h3>
+        <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded radiographic image" class="uploaded-image">
+      </div>
+      
+      <div class="prediction-section">
+        <div class="prediction-card">
+          <h3 class="prediction-title">Analysis Results</h3>
+          {% if prediction %}
+          <div class="prediction-result">{{ prediction }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <footer>
+    <p>Orthopedic Classification System &copy; 2023 | For medical use only</p>
+  </footer>
+
+  <script>
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Here you would typically make an API call to logout
+      // For this example, we'll just show an alert
+      alert('Logout functionality would be implemented here');
+      // window.location.href = '/logout'; // Uncomment this in a real implementation
+    });
+  </script>
+</body>
+</html>

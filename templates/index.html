@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bone Tumor Detection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='image/1.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #070c0f;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: 0.3s ease-in-out;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            background: linear-gradient(90deg, #e2fcf4, #5e5e5e);
+            color: black;
+            transform: scale(1.1);
+        }
+
+        .content {
+            text-align: center;
+            margin-top: 150px;
+        }
+
+        .content h1 {
+            font-size: 3.2rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #e0e0e0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 28px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #8a8a8a;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #242424;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Bone Tumor Detection</div>
+        <div>
+           
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>AI-Powered Bone Tumor Detection</h1>
+        <p>Upload your medical scans and let our system assist in detecting possible bone tumors.</p>
+        <a href="{{ url_for('prediction') }}" class="btn">Get Started</a>
+    </div>
+</body>
+</html>
