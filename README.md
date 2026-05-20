@@ -1,4 +1,4 @@
-# 🦴 Bone Cancer Detection using CNN and Flask
+# 🦴 Bone Cancer Detection using CNN and
 
 ## 📌 Description
 This project implements a **Bone Cancer Detection System using Convolutional Neural Networks (CNN)**. The model classifies medical images into **malignant or normal categories**. A **Flask-based web application** allows users to upload bone images and get instant predictions through a simple interface.
